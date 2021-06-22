@@ -70,6 +70,8 @@ type Record interface {
 	// Close closes the underlying memory allocation for this record so that
 	// the allocated memory can be reused
 	Close()
+	// prints contents
+	String() (string,error)
 }
 
 type RecordBase struct {
@@ -211,6 +213,23 @@ func (record *RecordBagHeader) ChunkCount() (uint32, error) {
 	return record.findFieldUint32([]byte("chunk_count"))
 }
 
+func (record *RecordBagHeader) String() (string, error) {
+	i,err := record.IndexPos()
+	if err != nil {
+		return "",err
+	}
+	cc,err := record.ConnCount()
+	if err != nil {
+		return "",err
+	}
+	chc,err := record.ChunkCount()
+	if err != nil {
+		return "",err
+	}
+	return fmt.Sprintf("RecordBagHeader: idx_pos: %v, conn_count: %v, chunk_count: %v", i, cc, chc), nil
+}
+
+
 // RecordChunk is a record that contains one or more RecordConnection and/or RecordMessageData.
 type RecordChunk struct {
 	*RecordBase
@@ -231,6 +250,20 @@ func (record *RecordChunk) Size() (uint32, error) {
 	return record.findFieldUint32([]byte("size"))
 }
 
+func (record *RecordChunk) String() (string,error) {
+	comp,err := record.Compression()
+	if err != nil {
+		return "",err
+	}
+
+	sz,err := record.Size()
+	if err != nil {
+		return "",err
+	}
+
+	return fmt.Sprintf("RecordChunk: compression %v, size: %v",comp,sz), nil
+}
+
 // RecordConnection is a record that contains metadata about message data. Some of the metadata are used
 // to encode/decode message data.
 type RecordConnection struct {
@@ -249,6 +282,18 @@ func (record *RecordConnection) Topic() (string, error) {
 		return "", err
 	}
 	return string(value), nil
+}
+
+func (record *RecordConnection) String() (string, error) {
+	id, err := record.Conn()
+	if err != nil {
+		return "",err
+	}
+	t, err := record.Topic()
+	if err != nil {
+		return "",err
+	}
+	return fmt.Sprintf("RecordConnection: connection: id %v, topic: %v",id,t), nil
 }
 
 // ConnectionHeader reads the underlying data and decode it to ConnectionHeader
@@ -293,6 +338,18 @@ func (record *RecordMessageData) ConnectionHeader() *ConnectionHeader {
 	return record.connHdr
 }
 
+func (record *RecordMessageData) String() (string,error) {
+	c,err := record.Conn()
+	if err != nil {
+		return "",err
+	}
+	t,err := record.Time()
+	if err != nil {
+		return "",err
+	}
+	return fmt.Sprintf("RecordMessageData: time : %v, conn: %v", t,c), nil
+}
+
 // ViewAs views the underlying raw data in the given v format. When possible, View
 // will convert raw data without making a copy. With no copy, decoding large arrays become really
 // fast! But, this also means that any data types that are reference based can't be used after this
@@ -321,6 +378,18 @@ func (record *RecordIndexData) Conn() (uint32, error) {
 // Ver parses Header to get the version of this Index record
 func (record *RecordIndexData) Ver() (uint32, error) {
 	return record.findFieldUint32([]byte("ver"))
+}
+
+func (record *RecordIndexData) String() (string, error) {
+	conn, err := record.Conn()
+	if err != nil {
+		return "",nil
+	}
+	cnt, err := record.Count()
+	if err != nil {
+		return "",nil
+	}
+	return fmt.Sprintf("RecordIndexData: %v %v\n", conn, cnt), nil
 }
 
 // Count parses Header to get the number of messages on conn in the preceding chunk
@@ -356,4 +425,24 @@ func (record *RecordChunkInfo) EndTime() (time.Time, error) {
 // Count parses Header to get the number of connections in the chunk
 func (record *RecordChunkInfo) Count() (uint32, error) {
 	return record.findFieldUint32([]byte("count"))
+}
+
+func (record *RecordChunkInfo) String() (string,error) {
+	pos,err := record.ChunkPos()
+	if err != nil {
+		return "",err
+	}
+	s,err := record.StartTime()
+	if err != nil {
+		return "",err
+	}
+	e,err := record.EndTime()
+	if err != nil {
+		return "",err
+	}
+	c,err := record.Count()
+	if err != nil {
+		return "",err
+	}
+	return fmt.Sprintf("RecordChunkInfo: chunk_pos : %v start: %v, end: %v, conn: %v", pos,s,e,c), nil
 }
