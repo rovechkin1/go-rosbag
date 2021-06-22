@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
-	"github.com/k0kubun/pp"
 	"github.com/lherman-cs/go-rosbag"
 )
 
@@ -23,7 +23,7 @@ func main() {
 	for {
 		record, err := decoder.Read()
 		if err != nil && err.Error() == "EOF" {
-			pp.Printf("EOF\n")
+			fmt.Printf("EOF\n")
 			return
 		} else {
 			must(err)
@@ -36,11 +36,12 @@ func main() {
 			data := make(map[string]interface{})
 			err = record.ViewAs(data)
 			must(err)
-			pp.Printf("Message: %v %v\n",record.ConnectionHeader().Topic, msgCnt)
+			s,_ := record.String()
+			fmt.Printf("%v, cnt: %v\n",s, msgCnt)
 
 		default:
 			s,_ := record.(rosbag.Record).String()
-			pp.Printf("%v\n",s)
+			fmt.Printf("%v\n",s)
 		}
 
 		record.Close()

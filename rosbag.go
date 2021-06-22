@@ -261,7 +261,7 @@ func (record *RecordChunk) String() (string,error) {
 		return "",err
 	}
 
-	return fmt.Sprintf("RecordChunk: compression %v, size: %v",comp,sz), nil
+	return fmt.Sprintf("---------- RecordChunk: compression %v, size: %v",comp,sz), nil
 }
 
 // RecordConnection is a record that contains metadata about message data. Some of the metadata are used
@@ -389,7 +389,7 @@ func (record *RecordIndexData) String() (string, error) {
 	if err != nil {
 		return "",nil
 	}
-	return fmt.Sprintf("RecordIndexData: %v %v\n", conn, cnt), nil
+	return fmt.Sprintf("RecordIndexData: conn: %v,  cnt: %v", conn, cnt), nil
 }
 
 // Count parses Header to get the number of messages on conn in the preceding chunk
