@@ -153,7 +153,7 @@ There are two known alternatives to go-rosbag (at least that I know of):
 * https://github.com/brychanrobot/goros/blob/master/rosbag.go: This project seems to be incomplete and abandoned.
 
 ## Ros Message Format
-[link](https://lucid.app/lucidchart/invitations/accept/inv_9d1917e5-b907-4e29-8506-2b3172da5a2a)
+[link](https://lucid.app/lucidchart/invitations/accept/inv_3bcd2ace-e927-4c84-8e11-f1485b474be5)
 
 ## Contributing
 
