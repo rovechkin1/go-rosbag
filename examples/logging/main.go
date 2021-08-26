@@ -14,7 +14,7 @@ func must(err error) {
 }
 
 func main() {
-	f, err := os.Open("/Users/ruslan/Downloads/Sample-Data/Sample-Data.bag")
+	f, err := os.Open("example.bag")
 	must(err)
 	defer f.Close()
 
