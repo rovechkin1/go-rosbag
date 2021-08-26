@@ -1,7 +1,7 @@
 # go-rosbag
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/lherman-cs/go-rosbag)](https://pkg.go.dev/github.com/lherman-cs/go-rosbag)
-[![CI](https://github.com/lherman-cs/go-rosbag/actions/workflows/ci.yaml/badge.svg)](https://github.com/lherman-cs/go-rosbag/actions/workflows/ci.yaml)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/rovechkin1/go-rosbag)](https://pkg.go.dev/github.com/rovechkin1/go-rosbag)
+[![CI](https://github.com/rovechkin1/go-rosbag/actions/workflows/ci.yaml/badge.svg)](https://github.com/rovechkin1/go-rosbag/actions/workflows/ci.yaml)
 
 Go [Rosbag](http://wiki.ros.org/rosbag) parser. Designed to provide **ease of use**, **speed**, and **streamability**.
 
@@ -17,7 +17,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/lherman-cs/go-rosbag"
+	"github.com/rovechkin1/go-rosbag"
 )
 
 func main() {
@@ -57,7 +57,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/lherman-cs/go-rosbag"
+	"github.com/rovechkin1/go-rosbag"
 )
 
 type Pixel struct {
@@ -126,7 +126,7 @@ Hardware specs:
 * Memory: 16 GB 2133 MHz LPDDR3
 * Storage: 256GB PCIe-based onboard SSD
 
-The following benchmark result ([source](https://github.com/lherman-cs/go-rosbag/blob/bb8c5d16d3b51ca42f137c8214b07446eaea25a0/decoder_bench_test.go)) was taken by parsing a 696 MB rosbag file from [webviz](https://webviz.io/). The bag contains frames and metadata from a car.
+The following benchmark result ([source](https://github.com/rovechkin1/go-rosbag/blob/bb8c5d16d3b51ca42f137c8214b07446eaea25a0/decoder_bench_test.go)) was taken by parsing a 696 MB rosbag file from [webviz](https://webviz.io/). The bag contains frames and metadata from a car.
 
 ```
 Time taken: 147 ms
