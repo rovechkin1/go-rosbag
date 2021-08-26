@@ -1,4 +1,4 @@
-module github.com/lherman-cs/go-rosbag
+module github.com/rovechkin1/go-rosbag
 
 go 1.15
 
