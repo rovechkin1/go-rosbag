@@ -152,6 +152,9 @@ There are two known alternatives to go-rosbag (at least that I know of):
 * https://github.com/starship-technologies/gobag: This project seems to be lacking a good way to process large rosbags, and unmarshall messages to structs.
 * https://github.com/brychanrobot/goros/blob/master/rosbag.go: This project seems to be incomplete and abandoned.
 
+## Ros Message Format
+[link](https://lucid.app/lucidchart/invitations/accept/inv_3bcd2ace-e927-4c84-8e11-f1485b474be5)
+
 ## Contributing
 
 Any contribution is welcomed! I will review pull requests as soon as possible.
@@ -159,3 +162,4 @@ Any contribution is welcomed! I will review pull requests as soon as possible.
 ## License
 
 go-rosbag is licensed under Apache license version 2.0. See LICENSE file.
+
